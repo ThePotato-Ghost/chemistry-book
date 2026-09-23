@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="bn" translate="no">
+<head>
+  <meta name="google" content="notranslate">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>লেখক পরিচিতি — কেমিস্ট্রি মাস্টার</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      var(--soil): #020617;
+      --earth: #1e293b;
+      --wheat: #0ea5e9;
+      --straw: #38bdf8;
+      --sage: #94a3b8;
+      --fog: #f8fafc;
+      --ink: #0f172a;
+      --cream: #ffffff;
+      --gold: #f59e0b;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Tiro Bangla', serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
+
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 3rem; height: 70px; display: flex; align-items: center; justify-content: space-between; background: var(--ink); box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
+    .nav-brand { font-family: 'Tiro Bangla', serif; font-size: 1.2rem; font-weight: 700; color: var(--cream); text-decoration: none; z-index: 1001; }
+    .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+    .nav-links a { font-family: 'Tiro Bangla', serif; font-size: 0.9rem; font-weight: 500; color: var(--cream); text-decoration: none; position: relative; padding-bottom: 3px; opacity: 0.85; transition: opacity 0.3s; }
+    .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .nav-links a:hover, .nav-links a.active { opacity: 1; }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-buy-btn { background: var(--gold) !important; color: var(--ink) !important; padding: 0.45rem 1.2rem !important; opacity: 1 !important; border-radius: 4px; font-weight: 700;}
+    .nav-buy-btn::after { display: none !important; }
+    .nav-buy-btn:hover { background: #d97706 !important; color: white !important;}
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; align-items: center; width: 40px; height: 40px; background: none; border: none; cursor: pointer; z-index: 1001; gap: 5px; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); transition: transform 0.35s ease, opacity 0.25s ease; transform-origin: center; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-drawer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+    .nav-drawer.open { opacity: 1; pointer-events: all; }
+    .nav-drawer a { font-family: 'Tiro Bangla', serif; font-size: 1.8rem; font-weight: 700; color: var(--straw); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+
+    .page-hero { min-height: 50vh; background: var(--ink); display: flex; align-items: flex-end; padding: 0 8vw 5rem; position: relative; overflow: hidden; }
+    .page-hero-bg { position: absolute; inset: 0; background: radial-gradient(circle at 75% 50%, rgba(14, 165, 233, 0.15) 0%, transparent 55%); }
+    .page-hero-content { position: relative; z-index: 2; }
+    .page-hero-label { font-family: 'Tiro Bangla', serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.15em; color: var(--wheat); margin-bottom: 1.2rem; }
+    .page-hero-title { font-family: 'Tiro Bangla', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; color: var(--straw); line-height: 1; margin-bottom: 1.2rem; }
+    .page-hero-title em { font-style: italic; color: var(--wheat); }
+    .page-hero-sub { font-family: 'Tiro Bangla', serif; font-size: 1.1rem; color: var(--sage); max-width: 520px; line-height: 1.7; }
+
+    .content-section { padding: 6rem 8vw; }
+    .section-label { font-family: 'Tiro Bangla', serif; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--wheat); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem; }
+    .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--wheat); }
+
+    h2 { font-family: 'Tiro Bangla', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--ink); margin-bottom: 1.5rem; line-height: 1.3; }
+    h2 em { font-style: italic; color: var(--wheat); }
+    p { font-size: 1.05rem; line-height: 1.9; color: var(--earth); margin-bottom: 1.2rem; }
+
+    .author-section { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: start; }
+    .author-portrait { position: sticky; top: 100px; }
+    .portrait-frame { width: 100%; aspect-ratio: 3/4; background: var(--earth); position: relative; overflow: hidden; max-width: 360px; border-radius: 4px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+    .portrait-frame::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 55%, rgba(2,6,23,0.9)); z-index: 1; }
+    .portrait-name { position: absolute; bottom: 1.5rem; left: 1.5rem; z-index: 2; }
+    .portrait-name h3 { font-family: 'Tiro Bangla', serif; font-size: 1.2rem; font-weight: 700; color: var(--straw); margin-bottom: 0.2rem; }
+    .portrait-name p { font-family: 'Tiro Bangla', serif; font-size: 0.9rem; color: var(--sage); margin: 0; }
+
+    .author-bio .subtitle { font-family: 'Tiro Bangla', serif; font-size: 1rem; font-weight: 600; color: var(--wheat); margin-bottom: 2.5rem; }
+
+    .works-list { margin-top: 3.5rem; }
+    .work-item { border-top: 1px solid rgba(15,23,42,0.1); padding: 1.5rem 0; display: flex; gap: 2rem; align-items: start; }
+    .work-year { font-family: 'DM Mono', monospace; font-size: 0.8rem; font-weight: 700; color: var(--wheat); padding-top: 0.25rem; min-width: 3.5rem; }
+    .work-title { font-family: 'Tiro Bangla', serif; font-size: 1.15rem; font-weight: 700; color: var(--ink); margin-bottom: 0.4rem; }
+    .work-desc { font-size: 0.95rem; color: var(--earth); margin: 0; line-height: 1.65; }
+
+    footer { background: var(--ink); padding: 3.5rem 8vw 2rem; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 2rem; }
+    .footer-brand { font-family: 'Tiro Bangla', serif; font-size: 1.5rem; font-weight: 700; color: var(--straw); }
+    .footer-copy { font-family: 'Tiro Bangla', serif; font-size: 0.85rem; color: var(--sage); text-align: right; line-height: 1.9; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media(max-width: 768px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .author-section { grid-template-columns: 1fr; gap: 3rem; }
+      .author-portrait { position: static; }
+      footer { flex-direction: column; align-items: flex-start; }
+      .footer-copy { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav-drawer" id="navDrawer">
+    <a href="about.html" onclick="closeDrawer()">লেখক পরিচিতি</a>
+    <a href="checkout.html" onclick="closeDrawer()">বই কিনুন</a>
+  </div>
+
+  <nav id="navbar">
+    <a href="index.html" class="nav-brand">কেমিস্ট্রি মাস্টার</a>
+    <ul class="nav-links">
+      <li><a href="about.html" class="active">লেখক পরিচিতি</a></li>
+      <li><a href="checkout.html" class="nav-buy-btn">বই কিনুন</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="মেনু">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-content">
+      <p class="page-hero-label">লেখক পরিচিতি</p>
+      <h1 class="page-hero-title">ড. মো:<br><em>আবু সালেক</em></h1>
+      <p class="page-hero-sub">সহযোগী অধ্যাপক, রসায়ন বিভাগ, আদমজী ক্যান্টনমেন্ট কলেজ, ঢাকা — এবং 'কেমিস্ট্রি মাস্টার' বইয়ের রচয়িতা।</p>
+    </div>
+  </div>
+
+  <section class="content-section">
+    <div class="author-section">
+      <div class="author-portrait reveal">
+        <div class="portrait-frame">
+          <img src="Author1.jpeg" alt="ড. মো: আবু সালেক" style="width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;"/>
+          <div class="portrait-name">
+            <h3>ড. মো: আবু সালেক</h3>
+            <p>রসায়ন বিভাগ</p>
+          </div>
+        </div>
+      </div>
+      <div class="author-bio reveal">
+        <p class="section-label">পরিচয়</p>
+        <h2>যিনি রসায়নকে করেন <em>প্রাঞ্জল ও সহজবোধ্য</em></h2>
+        <div class="subtitle">সহযোগী অধ্যাপক, রসায়ন বিভাগ — আদমজী ক্যান্টনমেন্ট কলেজ, ঢাকা</div>
+        <p>ড. মো: আবু সালেক দীর্ঘ সময় ধরে এইচএসসি এবং উচ্চমাধ্যমিক পর্যায়ের শিক্ষার্থীদের রসায়ন শিক্ষা দিয়ে আসছেন। রসায়নের প্রতি শিক্ষার্থীদের সাধারণ ভীতি দূর করে বিষয়টিকে আকর্ষণীয় করে তোলাই তার পাঠদানের মূল লক্ষ্য।</p>
+        <p>তার ক্লাসের মূল আকর্ষণ হলো জটিল মেকানিজম এবং গাণিতিক সমস্যাগুলোকে সহজবোধ্য উদাহরণের সাহায্যে ব্যাখ্যা করা। রসায়নের জটিল বিক্রিয়া ও সূত্রগুলোকে শিক্ষার্থীদের আয়ত্তে আনতে তিনি দারুণ সব কৌশল ব্যবহার করেন।</p>
+        <p><em>কেমিস্ট্রি মাস্টার</em> হলো তার সেই দীর্ঘ পাঠদান অভিজ্ঞতা এবং নিজস্ব নোটের একটি সুসংগঠিত সংকলন — যা প্রতিটি বিজ্ঞান শিক্ষার্থীর একটি নির্ভরযোগ্য গাইড।</p>
+
+        <div class="works-list">
+          <p class="section-label">বইয়ের বিশেষত্ব</p>
+          <div class="work-item reveal">
+            <div class="work-year">✦ ০১</div>
+            <div>
+              <div class="work-title">বোর্ড ও এডমিশন সমান্তরাল প্রস্তুতি</div>
+              <p class="work-desc">এইচএসসি বোর্ড পরীক্ষার সৃজনশীলের পাশাপাশি ইঞ্জিনিয়ারিং ও মেডিকেল স্ট্যান্ডার্ড প্রস্তুতি।</p>
+            </div>
+          </div>
+          <div class="work-item reveal">
+            <div class="work-year">✦ ০২</div>
+            <div>
+              <div class="work-title">জৈব রসায়নের সহজ সমাধান</div>
+              <p class="work-desc">জৈব যৌগের রূপান্তর এবং বিক্রিয়াগুলো ছক ও ফ্লোচার্টের মাধ্যমে উপস্থাপন।</p>
+            </div>
+          </div>
+          <div class="work-item reveal">
+            <div class="work-year">✦ ০৩</div>
+            <div>
+              <div class="work-title">গাণিতিক রসায়নের শর্টকাট</div>
+              <p class="work-desc">পরিমাণগত রসায়ন ও পরিবেশ রসায়নের জটিল অঙ্কগুলোর সহজ সূত্র ও টেকনিক।</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div>
+      <div class="footer-brand">কেমিস্ট্রি <em>মাস্টার</em></div>
+    </div>
+    <div class="footer-copy">© ২০২৬ ড. মো: আবু সালেক<br>সর্বস্বত্ব সংরক্ষিত</div>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('navDrawer');
+    function closeDrawer() { hamburger.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => { const isOpen = hamburger.classList.toggle('open'); drawer.classList.toggle('open', isOpen); document.body.style.overflow = isOpen ? 'hidden' : ''; });
+    const revealEls = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver(entries => { entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); } }); }, { threshold: 0.1 });
+    revealEls.forEach(el => obs.observe(el));
+  </script>
+</body>
+</html>
