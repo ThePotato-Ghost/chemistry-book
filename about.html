@@ -7,25 +7,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>লেখক পরিচিতি — কেমিস্ট্রি মাস্টার</title>
+  <title>লেখক পরিচিতি — Oxygen</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --soil: #020617;
-      --earth: #1e293b;
-      --wheat: #0ea5e9;
-      --straw: #38bdf8;
-      --sage: #94a3b8;
-      --fog: #f8fafc;
-      --ink: #0f172a;
-      --cream: #ffffff;
-      --gold: #f59e0b;
+      --soil: #020617; --earth: #1e293b; --wheat: #0ea5e9;
+      --straw: #38bdf8; --sage: #94a3b8; --fog: #f8fafc;
+      --ink: #0f172a; --cream: #ffffff; --gold: #f59e0b;
     }
     html { scroll-behavior: smooth; }
     body { font-family: 'Tiro Bangla', serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
 
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 3rem; height: 70px; display: flex; align-items: center; justify-content: space-between; background: var(--ink); box-shadow: 0 2px 20px rgba(0,0,0,0.25); }
-    .nav-brand { font-family: 'Tiro Bangla', serif; font-size: 1.2rem; font-weight: 700; color: var(--cream); text-decoration: none; z-index: 1001; }
+    .nav-brand { font-family: 'Tiro Bangla', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); text-decoration: none; z-index: 1001; }
     .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
     .nav-links a { font-family: 'Tiro Bangla', serif; font-size: 0.9rem; font-weight: 500; color: var(--cream); text-decoration: none; position: relative; padding-bottom: 3px; opacity: 0.85; transition: opacity 0.3s; }
     .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
@@ -39,10 +33,9 @@
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    
-    /* Corrected display: flex for proper animations */
-    .nav-drawer { display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
-    .nav-drawer.open { opacity: 1; pointer-events: all; }
+
+    .nav-drawer { display: flex; position: fixed; inset: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; visibility: hidden; opacity: 0; pointer-events: none; transition: opacity 0.35s ease, visibility 0.35s ease; }
+    .nav-drawer.open { visibility: visible; opacity: 1; pointer-events: all; }
     .nav-drawer a { font-family: 'Tiro Bangla', serif; font-size: 1.8rem; font-weight: 700; color: var(--straw); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
 
     .page-hero { min-height: 50vh; background: var(--ink); display: flex; align-items: flex-end; padding: 0 8vw 5rem; position: relative; overflow: hidden; }
@@ -50,7 +43,7 @@
     .page-hero-content { position: relative; z-index: 2; }
     .page-hero-label { font-family: 'Tiro Bangla', serif; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.15em; color: var(--wheat); margin-bottom: 1.2rem; }
     .page-hero-title { font-family: 'Tiro Bangla', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; color: var(--straw); line-height: 1; margin-bottom: 1.2rem; }
-    .page-hero-title em { font-style: italic; color: var(--wheat); }
+    .page-hero-title em { font-style: normal; color: var(--wheat); }
     .page-hero-sub { font-family: 'Tiro Bangla', serif; font-size: 1.1rem; color: var(--sage); max-width: 520px; line-height: 1.7; }
 
     .content-section { padding: 6rem 8vw; }
@@ -58,7 +51,7 @@
     .section-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: var(--wheat); }
 
     h2 { font-family: 'Tiro Bangla', serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); font-weight: 700; color: var(--ink); margin-bottom: 1.5rem; line-height: 1.3; }
-    h2 em { font-style: italic; color: var(--wheat); }
+    h2 em { font-style: normal; color: var(--wheat); }
     p { font-size: 1.05rem; line-height: 1.9; color: var(--earth); margin-bottom: 1.2rem; }
 
     .author-section { display: grid; grid-template-columns: 1fr 1.4fr; gap: 6rem; align-items: start; }
@@ -104,7 +97,7 @@
   </div>
 
   <nav id="navbar">
-    <a href="index.html" class="nav-brand">কেমিস্ট্রি মাস্টার</a>
+    <a href="index.html" class="nav-brand">Oxygen</a>
     <ul class="nav-links">
       <li><a href="about.html" class="active">লেখক পরিচিতি</a></li>
       <li><a href="checkout.html" class="nav-buy-btn">বই কিনুন</a></li>
@@ -119,7 +112,7 @@
     <div class="page-hero-content">
       <p class="page-hero-label">লেখক পরিচিতি</p>
       <h1 class="page-hero-title">ড. মো:<br><em>আবু সালেক</em></h1>
-      <p class="page-hero-sub">সহযোগী অধ্যাপক, রসায়ন বিভাগ, আদমজী ক্যান্টনমেন্ট কলেজ, ঢাকা — এবং 'কেমিস্ট্রি মাস্টার' বইয়ের রচয়িতা।</p>
+      <p class="page-hero-sub">সহযোগী অধ্যাপক, রসায়ন বিভাগ, আদমজী ক্যান্টনমেন্ট কলেজ, ঢাকা — এবং 'Oxygen' বইয়ের রচয়িতা।</p>
     </div>
   </div>
 
@@ -140,7 +133,7 @@
         <div class="subtitle">সহযোগী অধ্যাপক, রসায়ন বিভাগ — আদমজী ক্যান্টনমেন্ট কলেজ, ঢাকা</div>
         <p>ড. মো: আবু সালেক দীর্ঘ সময় ধরে এইচএসসি এবং উচ্চমাধ্যমিক পর্যায়ের শিক্ষার্থীদের রসায়ন শিক্ষা দিয়ে আসছেন। রসায়নের প্রতি শিক্ষার্থীদের সাধারণ ভীতি দূর করে বিষয়টিকে আকর্ষণীয় করে তোলাই তার পাঠদানের মূল লক্ষ্য।</p>
         <p>তার ক্লাসের মূল আকর্ষণ হলো জটিল মেকানিজম এবং গাণিতিক সমস্যাগুলোকে সহজবোধ্য উদাহরণের সাহায্যে ব্যাখ্যা করা। রসায়নের জটিল বিক্রিয়া ও সূত্রগুলোকে শিক্ষার্থীদের আয়ত্তে আনতে তিনি দারুণ সব কৌশল ব্যবহার করেন।</p>
-        <p><em>কেমিস্ট্রি মাস্টার</em> হলো তার সেই দীর্ঘ পাঠদান অভিজ্ঞতা এবং নিজস্ব নোটের একটি সুসংগঠিত সংকলন — যা প্রতিটি বিজ্ঞান শিক্ষার্থীর একটি নির্ভরযোগ্য গাইড।</p>
+        <p><em>Oxygen</em> হলো তার সেই দীর্ঘ পাঠদান অভিজ্ঞতা এবং নিজস্ব নোটের একটি সুসংগঠিত সংকলন — যা প্রতিটি বিজ্ঞান শিক্ষার্থীর একটি নির্ভরযোগ্য গাইড।</p>
 
         <div class="works-list">
           <p class="section-label">বইয়ের বিশেষত্ব</p>
@@ -172,7 +165,7 @@
 
   <footer>
     <div>
-      <div class="footer-brand">কেমিস্ট্রি <em>মাস্টার</em></div>
+      <div class="footer-brand">Oxygen</div>
     </div>
     <div class="footer-copy">© ২০২৬ ড. মো: আবু সালেক<br>সর্বস্বত্ব সংরক্ষিত</div>
   </footer>

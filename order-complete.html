@@ -6,135 +6,32 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
   <meta charset="UTF-8">
-  <title>অর্ডার সফল — কেমিস্ট্রি মাস্টার</title>
+  <title>অর্ডার সফল — Oxygen</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Tiro Bangla', serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 20px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 550px;
-      background: #fff;
-      border-radius: 8px;
-      padding: 35px 25px;
-      box-shadow: 0 10px 40px rgba(2, 6, 23, 0.08);
-      animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .success {
-      text-align: center;
-      margin-bottom: 25px;
-    }
-
-    .success-icon {
-      font-size: 50px;
-      color: #0ea5e9; /* Cyan */
-      margin-bottom: 10px;
-    }
-
-    .success h2 {
-      color: #0f172a;
-      font-size: 1.6rem;
-      margin-bottom: 5px;
-    }
-
-    .success p {
-      color: #64748b;
-      font-size: 0.95rem;
-    }
-
-    .box {
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      padding: 15px 20px;
-      margin-top: 20px;
-    }
-
-    .row {
-      display: flex;
-      justify-content: space-between;
-      margin: 10px 0;
-      font-size: 0.95rem;
-      border-bottom: 1px dashed #e2e8f0;
-      padding-bottom: 8px;
-    }
-    .row:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .label {
-      color: #64748b;
-    }
-
-    .value {
-      font-weight: 700;
-      color: #0f172a;
-      text-align: right;
-    }
-
-    h3 {
-      margin-top: 25px;
-      font-size: 1.1rem;
-      color: #0f172a;
-      border-bottom: 2px solid #0ea5e9;
-      display: inline-block;
-      padding-bottom: 4px;
-    }
-
-    .customer {
-      margin-top: 15px;
-      line-height: 1.7;
-      font-size: 0.95rem;
-      color: #334155;
-    }
-
-    .btn {
-      margin-top: 30px;
-      display: block;
-      width: 100%;
-      text-align: center;
-      background: #f59e0b;
-      color: #0f172a;
-      padding: 14px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: 0.2s;
-    }
-
-    .btn:hover {
-      background: #d97706;
-      color: #fff;
-    }
-
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tiro Bangla', serif; }
+    body { background: linear-gradient(135deg, #f0f9ff, #e0f2fe); display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+    .container { width: 100%; max-width: 550px; background: #fff; border-radius: 8px; padding: 35px 25px; box-shadow: 0 10px 40px rgba(2, 6, 23, 0.08); animation: fadeIn 0.5s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .success { text-align: center; margin-bottom: 25px; }
+    .success-icon { font-size: 50px; color: #0ea5e9; margin-bottom: 10px; }
+    .success h2 { color: #0f172a; font-size: 1.6rem; margin-bottom: 5px; }
+    .success p { color: #64748b; font-size: 0.95rem; }
+    .box { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 15px 20px; margin-top: 20px; }
+    .row { display: flex; justify-content: space-between; margin: 10px 0; font-size: 0.95rem; border-bottom: 1px dashed #e2e8f0; padding-bottom: 8px; }
+    .row:last-child { border-bottom: none; padding-bottom: 0; }
+    .label { color: #64748b; }
+    .value { font-weight: 700; color: #0f172a; text-align: right; }
+    h3 { margin-top: 25px; font-size: 1.1rem; color: #0f172a; border-bottom: 2px solid #0ea5e9; display: inline-block; padding-bottom: 4px; }
+    .customer { margin-top: 15px; line-height: 1.7; font-size: 0.95rem; color: #334155; }
+    .btn { margin-top: 30px; display: block; width: 100%; text-align: center; background: #f59e0b; color: #0f172a; padding: 14px; border-radius: 4px; text-decoration: none; font-weight: bold; transition: 0.2s; }
+    .btn:hover { background: #d97706; color: #fff; }
   </style>
 </head>
 <body>
 
 <div class="container">
-
   <div class="success">
     <div class="success-icon">✔</div>
     <h2>অর্ডার সফল হয়েছে!</h2>
@@ -168,10 +65,7 @@
 </div>
 
 <script>
-  function toBanglaNum(n) {
-      return String(n).replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]);
-  }
-
+  function toBanglaNum(n) { return String(n).replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]); }
   const data = JSON.parse(localStorage.getItem("lastOrder"));
 
   if (data) {
@@ -179,7 +73,6 @@
     document.getElementById("productName").textContent = data.product;
     document.getElementById("qty").textContent = toBanglaNum(data.quantity) + " টি";
     document.getElementById("total").textContent = "৳ " + toBanglaNum(data.total);
-
     document.getElementById("customer").innerHTML = `
       <strong>${data.customer.name}</strong><br>
       ফোন: ${data.customer.phone}<br>
@@ -187,7 +80,6 @@
       ${data.customer.upazila ? data.customer.upazila + ", " : ""}${data.customer.district}
     `;
   } else {
-    // Fallback if accessed directly without an order
     document.querySelector('.container').innerHTML = `
       <div class="success"><h2>কোনো অর্ডার পাওয়া যায়নি</h2></div>
       <a href="index.html" class="btn">হোমে যান</a>

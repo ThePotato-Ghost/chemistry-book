@@ -7,20 +7,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>কেমিস্ট্রি মাস্টার — এইচএসসি রসায়ন প্রস্তুতি</title>
+  <title>Oxygen — এইচএসসি রসায়ন প্রস্তুতি</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      /* Chemistry Theme Colors */
-      --soil: #020617;     /* Deep dark blue/black */
-      --earth: #1e293b;    /* Slate */
-      --wheat: #0ea5e9;    /* Cyan/Sky Blue */
-      --straw: #38bdf8;    /* Light Cyan */
-      --sage: #94a3b8;     /* Muted blue-grey */
-      --fog: #f8fafc;      /* Off white */
-      --ink: #0f172a;      /* Dark slate */
-      --cream: #ffffff;    /* White */
-      --gold: #f59e0b;     /* Amber accent for buttons */
+      --soil: #020617; --earth: #1e293b; --wheat: #0ea5e9;
+      --straw: #38bdf8; --sage: #94a3b8; --fog: #f8fafc;
+      --ink: #0f172a; --cream: #ffffff; --gold: #f59e0b;
     }
     .dev-note a, .dev-note a:hover, .dev-note a:visited { text-decoration: none; color: rgba(14, 165, 233, 0.4); }
     html { scroll-behavior: smooth; }
@@ -28,7 +21,7 @@
 
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 3rem; height: 70px; display: flex; align-items: center; justify-content: space-between; background: transparent; transition: background 0.4s ease, box-shadow 0.4s ease; }
     nav.scrolled { background: var(--ink); box-shadow: 0 2px 30px rgba(0,0,0,0.3); }
-    .nav-brand { font-family: 'Tiro Bangla', serif; font-size: 1.2rem; font-weight: 700; color: var(--cream); text-decoration: none; z-index: 1001; }
+    .nav-brand { font-family: 'Tiro Bangla', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); text-decoration: none; z-index: 1001; }
     .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
     .nav-links a { font-family: 'Tiro Bangla', serif; font-size: 0.9rem; font-weight: 500; color: var(--cream); text-decoration: none; position: relative; padding-bottom: 3px; opacity: 0.85; transition: opacity 0.3s; }
     .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
@@ -42,10 +35,10 @@
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    
-    /* Changed display: none to display: flex to fix mobile menu rendering */
-    .nav-drawer { display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
-    .nav-drawer.open { opacity: 1; pointer-events: all; }
+
+    /* Fixed mobile menu bug using visibility alongside opacity */
+    .nav-drawer { display: flex; position: fixed; inset: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; visibility: hidden; opacity: 0; pointer-events: none; transition: opacity 0.35s ease, visibility 0.35s ease; }
+    .nav-drawer.open { visibility: visible; opacity: 1; pointer-events: all; }
     .nav-drawer a { font-family: 'Tiro Bangla', serif; font-size: 1.8rem; font-weight: 700; color: var(--straw); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
     .nav-drawer a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
     .nav-drawer a:hover { color: var(--wheat); }
@@ -56,7 +49,7 @@
     .hero-content { position: relative; z-index: 2; padding: 0 8vw; max-width: 1400px; width: 100%; }
     .hero-label { font-family: 'Tiro Bangla', serif; font-size: 0.9rem; letter-spacing: 0.08em; color: var(--wheat); margin-bottom: 1.5rem; opacity: 0; animation: fadeUp 0.8s 0.2s forwards; }
     .hero-title { font-family: 'Tiro Bangla', serif; font-size: clamp(3.5rem, 8vw, 8rem); font-weight: 900; line-height: 1; color: var(--straw); margin-bottom: 0.3em; opacity: 0; animation: fadeUp 0.9s 0.4s forwards; }
-    .hero-title em { font-style: italic; color: var(--wheat); }
+    .hero-title em { font-style: normal; color: var(--wheat); }
     .hero-subtitle { font-family: 'Tiro Bangla', serif; font-size: clamp(1rem, 2vw, 1.3rem); font-weight: 300; color: var(--sage); margin-bottom: 2.5rem; opacity: 0; animation: fadeUp 0.9s 0.6s forwards; line-height: 1.6; }
     .hero-cta { display: inline-block; font-family: 'Tiro Bangla', serif; font-size: 1rem; font-weight: 700; color: #020617; background: var(--gold); padding: 1.2rem 2.5rem; text-decoration: none; border-radius: 4px; transition: background 0.3s, transform 0.3s; opacity: 0; animation: fadeUp 0.9s 0.8s forwards; }
     .hero-cta:hover { background: #d97706; color: white; transform: translateY(-3px); }
@@ -67,10 +60,9 @@
 
     #about { background: var(--fog); display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
     .about-text h2 { font-family: 'Tiro Bangla', serif; font-size: clamp(2rem, 3.8vw, 3.2rem); font-weight: 700; line-height: 1.2; color: var(--soil); margin-bottom: 1.5rem; }
-    .about-text h2 em { font-style: italic; color: var(--wheat); }
+    .about-text h2 em { font-style: normal; color: var(--wheat); }
     .about-text p { font-size: 1.05rem; line-height: 1.9; color: var(--earth); margin-bottom: 1.2rem; }
 
-    /* Cover display logic for 3 images */
     .about-visual { display: flex; flex-direction: column; gap: 1.5rem; align-items: center;}
     .books-front { display: flex; gap: 1rem; justify-content: center; width: 100%;}
     .books-front img { width: 45%; max-width: 200px; box-shadow: 10px 15px 30px rgba(0,0,0,0.2); border-radius: 4px; transition: transform 0.3s;}
@@ -126,7 +118,7 @@
   </div>
 
   <nav id="navbar">
-    <a href="index.html" class="nav-brand">কেমিস্ট্রি মাস্টার</a>
+    <a href="index.html" class="nav-brand">Oxygen</a>
     <ul class="nav-links">
       <li><a href="about.html">লেখক পরিচিতি</a></li>
       <li><a href="checkout.html" class="nav-buy-btn">বই কিনুন</a></li>
@@ -140,8 +132,8 @@
     <div class="hero-bg"></div>
     <div class="hero-content">
       <p class="hero-label">এইচএসসি ও ভর্তি পরীক্ষার চূড়ান্ত প্রস্তুতি</p>
-      <h1 class="hero-title">কেমিস্ট্রি <em>মাস্টার</em></h1>
-      <p class="hero-subtitle">এইচএসসি রসায়ন ১ম ও ২য় পত্রের পূর্ণাঙ্গ সমাধান।<br>বোর্ড পরীক্ষা থেকে শুরু করে ইঞ্জিনিয়ারিং ও মেডিকেল ভর্তি প্রস্তুতি — সবই এক মলাটে।</p>
+      <h1 class="hero-title"><em>Oxygen</em></h1>
+      <p class="hero-subtitle">এইচএসসি রসায়ন বাংলা ও ইংরেজি মাধ্যমের পূর্ণাঙ্গ সমাধান।<br>বোর্ড পরীক্ষা, প্রাকটিক্যাল থেকে শুরু করে ইঞ্জিনিয়ারিং ও মেডিকেল ভর্তি প্রস্তুতি — সবই এক মলাটে।</p>
       <a href="checkout.html" class="hero-cta">অর্ডার করুন →</a>
     </div>
   </section>
@@ -150,14 +142,14 @@
     <div class="about-text reveal">
       <p class="section-label">বই সম্পর্কে</p>
       <h2>রসায়নের ভয়কে করুন <em>জয়</em></h2>
-      <p>কেমিস্ট্রি মাস্টার হলো এইচএসসি বিজ্ঞান বিভাগের শিক্ষার্থীদের জন্য রচিত একটি যুগান্তকারী বই। ১ম পত্রের গুণগত রসায়ন থেকে শুরু করে ২য় পত্রের জটিল জৈব রসায়ন — প্রতিটি বিষয়কে অত্যন্ত সহজ ও সাবলীলভাবে উপস্থাপন করা হয়েছে।</p>
-      <p>বইটিতে রয়েছে প্রতিটি অধ্যায়ের শেষে হাজারো গাণিতিক সমস্যার শর্টকাট সমাধান, বিগত বছরের বোর্ড প্রশ্ন এবং বিশ্ববিদ্যালয় ভর্তি পরীক্ষার প্রশ্নব্যাংক। শুধু মুখস্থ নয়, রসায়নের মূল বেসিক বুঝতে এই বইটির বিকল্প নেই।</p>
-      <p>১ম ও ২য় পত্র আলাদাভাবে বা একসাথে সংগ্রহ করতে পারবেন আপনার প্রয়োজন অনুযায়ী।</p>
+      <p>Oxygen হলো এইচএসসি বিজ্ঞান বিভাগের শিক্ষার্থীদের জন্য রচিত একটি যুগান্তকারী বই। গুণগত রসায়ন থেকে শুরু করে জটিল জৈব রসায়ন — প্রতিটি বিষয়কে অত্যন্ত সহজ ও সাবলীলভাবে উপস্থাপন করা হয়েছে।</p>
+      <p>সকল শিক্ষার্থীর সুবিধার্থে বইটি <strong>বাংলা ও ইংরেজি উভয় ভার্সনে</strong> প্রকাশ করা হয়েছে। এর পাশাপাশি বোর্ড পরীক্ষার প্রস্তুতির জন্য রয়েছে একটি পূর্ণাঙ্গ <strong>রসায়ন প্রাকটিক্যাল বই</strong>।</p>
+      <p>১ম ও ২য় পত্র আলাদাভাবে বা একসাথে, আপনার পছন্দনীয় মাধ্যম (বাংলা/ইংরেজি) অনুযায়ী সংগ্রহ করতে পারবেন।</p>
     </div>
     <div class="about-visual reveal">
       <div class="books-front">
-        <img src="Book_Cover1.jpeg" alt="কেমিস্ট্রি মাস্টার ১ম পত্র"/>
-        <img src="Book_Cover3.jpeg" alt="কেমিস্ট্রি মাস্টার ২য় পত্র"/>
+        <img src="Book_Cover1.jpeg" alt="Oxygen ১ম পত্র"/>
+        <img src="Book_Cover3.jpeg" alt="Oxygen ২য় পত্র"/>
       </div>
       <img src="Book_Cover2.jpeg" class="book-back" alt="বইয়ের পেছনের অংশ"/>
     </div>
@@ -165,7 +157,7 @@
 
   <section id="chapters">
     <p class="section-label reveal">বইয়ের বৈশিষ্ট্য</p>
-    <h2 class="reveal">কেন পড়বেন <em>কেমিস্ট্রি মাস্টার?</em></h2>
+    <h2 class="reveal">কেন পড়বেন <em>Oxygen?</em></h2>
     <div class="chapters-grid">
       <div class="chapter-card reveal">
         <div class="chapter-num">১ম পত্র</div>
@@ -178,9 +170,9 @@
         <div class="chapter-desc">নামকরণ, বিক্রিয়ার মেকানিজম এবং রূপান্তর মনে রাখার জন্য বিশেষ মাইন্ড-ম্যাপ ও শর্টকাট টেকনিক।</div>
       </div>
       <div class="chapter-card reveal">
-        <div class="chapter-num">২য় পত্র</div>
-        <div class="chapter-name">পরিমাণগত রসায়ন</div>
-        <div class="chapter-desc">জারণ-বিজারণ সমতা বিধান, টাইট্রেশন এবং মোলারিটির জটিল অঙ্কগুলো ক্যালকুলেটর ছাড়াই সমাধানের নিনজা টেকনিক।</div>
+        <div class="chapter-num">প্রাকটিক্যাল</div>
+        <div class="chapter-name">হাতে-কলমে রসায়ন</div>
+        <div class="chapter-desc">ল্যাবরেটরির প্রতিটি এক্সপেরিমেন্ট, সল্ট অ্যানালাইসিস এবং টাইট্রেশন নিখুঁতভাবে শেখার জন্য স্পেশাল প্রাকটিক্যাল গাইড।</div>
       </div>
       <div class="chapter-card reveal">
         <div class="chapter-num">প্রস্তুতি</div>
@@ -205,13 +197,13 @@
       <h2>ড. মো: আবু সালেক</h2>
       <p>ড. মো: আবু সালেক আদমজী ক্যান্টনমেন্ট কলেজ, ঢাকা-এর রসায়ন বিভাগের সহযোগী অধ্যাপক হিসেবে কর্মরত আছেন। তিনি দীর্ঘ সময় ধরে উচ্চমাধ্যমিক ও ভর্তি পরীক্ষার্থীদের রসায়ন শিক্ষা দিয়ে আসছেন।</p>
       <p>শিক্ষার্থীদের কাছে রসায়নের জটিল বিষয়গুলো, বিশেষ করে জৈব রসায়ন এবং গাণিতিক রসায়নকে সহজবোধ্য করে তোলার জন্য তিনি অত্যন্ত জনপ্রিয়। তার পড়ানোর অভিনব কৌশল শিক্ষার্থীদের রসায়নের প্রতি আগ্রহ বাড়াতে সাহায্য করে।</p>
-      <p><em>কেমিস্ট্রি মাস্টার</em> তাঁর দীর্ঘ শিক্ষকতা জীবনের অভিজ্ঞতা এবং দিকনির্দেশনার এক অনবদ্য ফসল।</p>
+      <p><em>Oxygen</em> তাঁর দীর্ঘ শিক্ষকতা জীবনের অভিজ্ঞতা এবং দিকনির্দেশনার এক অনবদ্য ফসল।</p>
     </div>
   </section>
 
   <footer>
     <div class="footer-left">
-      <div class="footer-brand">কেমিস্ট্রি <em>মাস্টার</em></div>
+      <div class="footer-brand">Oxygen</div>
       <div style="color: var(--sage); font-size: 0.9rem;">এইচএসসি রসায়নের বিশ্বস্ত গাইড</div>
     </div>
     <div class="footer-right">
@@ -223,10 +215,20 @@
   <script>
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 60); });
+
     const hamburger = document.getElementById('hamburger');
     const drawer = document.getElementById('navDrawer');
-    function closeDrawer() { hamburger.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow = ''; }
-    hamburger.addEventListener('click', () => { const isOpen = hamburger.classList.toggle('open'); drawer.classList.toggle('open', isOpen); document.body.style.overflow = isOpen ? 'hidden' : ''; });
+    function closeDrawer() {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      drawer.classList.toggle('open', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
     const revealEls = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => { entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), 100); observer.unobserve(e.target); } }); }, { threshold: 0.12 });
     revealEls.forEach(el => observer.observe(el));

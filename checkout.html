@@ -7,39 +7,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>অর্ডার করুন — কেমিস্ট্রি মাস্টার</title>
+  <title>অর্ডার করুন — Oxygen</title>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      --soil: #020617;
-      --earth: #1e293b;
-      --wheat: #0ea5e9;
-      --straw: #38bdf8;
-      --sage: #94a3b8;
-      --fog: #f8fafc;
-      --ink: #0f172a;
-      --cream: #ffffff;
-      --gold: #f59e0b;
+      --soil: #020617; --earth: #1e293b; --wheat: #0ea5e9;
+      --straw: #38bdf8; --sage: #94a3b8; --fog: #f8fafc;
+      --ink: #0f172a; --cream: #ffffff; --gold: #f59e0b;
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Tiro Bangla', serif; background: var(--fog); color: var(--soil); min-height: 100vh; }
+    body { font-family: 'Tiro Bangla', serif; background: var(--fog); color: var(--soil); min-height: 100vh; overflow-x: hidden; }
 
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 0 3rem; height: 70px; display: flex; align-items: center; justify-content: space-between; background: var(--ink); box-shadow: 0 2px 20px rgba(0,0,0,0.2); }
-    .nav-brand { font-family: 'Tiro Bangla', serif; font-size: 1.2rem; font-weight: 700; color: var(--cream); text-decoration: none; z-index: 1001; }
+    .nav-brand { font-family: 'Tiro Bangla', serif; font-size: 1.5rem; font-weight: 700; color: var(--cream); text-decoration: none; z-index: 1001; }
     .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
     .nav-links a { font-family: 'Tiro Bangla', serif; font-size: 0.9rem; font-weight: 500; color: var(--cream); text-decoration: none; position: relative; padding-bottom: 3px; opacity: 0.85; transition: opacity 0.3s; }
     .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
     .nav-links a:hover { opacity: 1; }
     .nav-links a:hover::after { width: 100%; }
-    
-    /* Added Nav Hamburger and Drawer styles */
+
     .nav-hamburger { display: none; flex-direction: column; justify-content: center; align-items: center; width: 40px; height: 40px; background: none; border: none; cursor: pointer; z-index: 1001; gap: 5px; }
     .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); transition: transform 0.35s ease, opacity 0.25s ease; transform-origin: center; }
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .nav-drawer { display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
-    .nav-drawer.open { opacity: 1; pointer-events: all; }
+
+    .nav-drawer { display: flex; position: fixed; inset: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; visibility: hidden; opacity: 0; pointer-events: none; transition: opacity 0.35s ease, visibility 0.35s ease; }
+    .nav-drawer.open { visibility: visible; opacity: 1; pointer-events: all; }
     .nav-drawer a { font-family: 'Tiro Bangla', serif; font-size: 1.8rem; font-weight: 700; color: var(--straw); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
     .nav-drawer a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
     .nav-drawer a:hover { color: var(--wheat); }
@@ -57,7 +51,6 @@
     .card-header h2 { font-family: 'Tiro Bangla', serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.1em; color: var(--earth); }
     .card-body { padding: 2rem; }
 
-    /* Book Choice Styling */
     .book-choice-wrapper { background: rgba(14, 165, 233, 0.05); padding: 1.5rem; border-radius: 6px; border: 1px solid rgba(14, 165, 233, 0.2); margin-bottom: 2rem; }
     .book-choice-title { font-weight: 700; color: var(--ink); margin-bottom: 1rem; display: block; font-size: 1.05rem; }
     .radio-group { display: flex; flex-direction: column; gap: 0.8rem; }
@@ -99,14 +92,13 @@
     .totals-row { display: flex; justify-content: space-between; padding: 0.85rem 0; border-bottom: 1px solid rgba(15,23,42,0.06); font-size: 0.95rem; color: var(--earth); }
     .totals-row:last-child { border: none; }
     .totals-row.total-final { padding: 1.2rem 0; font-size: 1.2rem; font-weight: 700; color: var(--soil); border-top: 2px solid rgba(15,23,42,0.1); margin-top: 0.5rem;}
-    .shipping-tag { font-family: 'Tiro Bangla', serif; font-size: 0.75rem; color: var(--wheat); background: rgba(14, 165, 233, 0.1); padding: 0.2rem 0.6rem; border-radius: 12px; margin-left: 0.5rem; }
+    .shipping-tag { font-family: 'Tiro Bangla', serif; font-size: 0.75rem; color: var(--wheat); background: rgba(14, 165, 233, 0.1); padding: 0.2rem 0.6rem; border-radius: 12px; margin-left: 0.5rem; font-weight: 700;}
 
     .place-order-btn { display: block; width: calc(100% - 4rem); margin: 0 2rem 2rem; background: var(--gold); color: var(--ink); border: none; padding: 1.2rem 2rem; font-family: 'Tiro Bangla', serif; font-size: 1rem; font-weight: 700; border-radius: 4px; cursor: pointer; transition: background 0.3s, transform 0.2s; position: relative; }
     .place-order-btn:hover:not(:disabled) { background: #d97706; color: white; transform: translateY(-2px); }
 
     footer { background: var(--ink); padding: 3rem 6vw 2rem; text-align: center; color: var(--sage); font-size: 0.9rem;}
 
-    /* Added Mobile Responsiveness */
     @media(max-width: 768px) {
       nav { padding: 0 1.2rem; }
       .nav-links { display: none; }
@@ -125,18 +117,16 @@
 </head>
 <body>
 
-  <!-- Added Nav Drawer -->
   <div class="nav-drawer" id="navDrawer">
     <a href="index.html" onclick="closeDrawer()">হোম</a>
     <a href="about.html" onclick="closeDrawer()">লেখক পরিচিতি</a>
   </div>
 
   <nav>
-    <a href="index.html" class="nav-brand">কেমিস্ট্রি মাস্টার</a>
+    <a href="index.html" class="nav-brand">Oxygen</a>
     <ul class="nav-links">
       <li><a href="about.html">লেখক পরিচিতি</a></li>
     </ul>
-    <!-- Added Hamburger Menu Button -->
     <button class="nav-hamburger" id="hamburger" aria-label="মেনু">
       <span></span><span></span><span></span>
     </button>
@@ -165,16 +155,36 @@
             <span class="book-choice-title">কোন বইটি নিতে চান? <span style="color:#dc2626">*</span></span>
             <div class="radio-group">
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="paper1" checked>
-                কেমিস্ট্রি মাস্টার ১ম পত্র
+                <input type="radio" name="book_choice" value="b_paper1" checked>
+                বাংলা ভার্সন প্রথম পত্র
               </label>
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="paper2">
-                কেমিস্ট্রি মাস্টার ২য় পত্র
+                <input type="radio" name="book_choice" value="b_paper2">
+                বাংলা ভার্সন দ্বিতীয় পত্র
               </label>
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="both">
-                ১ম ও ২য় পত্র (একত্রে)
+                <input type="radio" name="book_choice" value="b_both">
+                বাংলা ভার্সন ১ম ও ২য় পত্র (একত্রে)
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="book_choice" value="e_paper1">
+                ইংরেজি ভার্সন প্রথম পত্র
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="book_choice" value="e_paper2">
+                ইংরেজি ভার্সন দ্বিতীয় পত্র
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="book_choice" value="e_both">
+                ইংরেজি ভার্সন ১ম ও ২য় পত্র (একত্রে)
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="book_choice" value="b_prac">
+                বাংলা ভার্সন প্রাকটিক্যাল বই
+              </label>
+              <label class="radio-label">
+                <input type="radio" name="book_choice" value="e_prac">
+                ইংরেজি ভার্সন প্রাকটিক্যাল বই
               </label>
             </div>
           </div>
@@ -237,9 +247,9 @@
             <tbody>
               <tr>
                 <td>
-                  <div class="product-name" id="displayBookName">কেমিস্ট্রি মাস্টার ১ম পত্র</div>
+                  <div class="product-name" id="displayBookName">বাংলা ভার্সন প্রথম পত্র</div>
                 </td>
-                <td id="displayUnitPrice">৳ ৩৫০</td>
+                <td id="displayUnitPrice">৳ ৫২০</td>
               </tr>
             </tbody>
           </table>
@@ -256,15 +266,15 @@
           <div class="order-totals">
             <div class="totals-row">
               <span>বইয়ের মূল্য</span>
-              <span id="subtotalAmt">৳ ৩৫০</span>
+              <span id="subtotalAmt">৳ ৫২০</span>
             </div>
             <div class="totals-row">
-              <span>ডেলিভারি চার্জ <span class="shipping-tag" id="shippingTag">—</span></span>
-              <span id="shippingAmt">জেলা বেছে নিন</span>
+              <span>ডেলিভারি চার্জ <span class="shipping-tag" id="shippingTag">ফ্রি ডেলিভারি</span></span>
+              <span id="shippingAmt">৳ ০</span>
             </div>
             <div class="totals-row total-final">
               <span>সর্বমোট</span>
-              <span id="totalAmt">৳ ৩৫০</span>
+              <span id="totalAmt">৳ ৫২০</span>
             </div>
           </div>
 
@@ -277,45 +287,42 @@
   <input type="text" name="company" id="company" style="display:none">
 
   <footer>
-    © ২০২৫ ড. শফিকুল ইসলাম। সর্বস্বত্ব সংরক্ষিত।
+    © ২০২৬ ড. মো: আবু সালেক। সর্বস্বত্ব সংরক্ষিত।
   </footer>
 
   <script>
-    // Added Javascript for mobile menu toggle
     const hamburger = document.getElementById('hamburger');
     const drawer = document.getElementById('navDrawer');
     function closeDrawer() { hamburger.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow = ''; }
     hamburger.addEventListener('click', () => { const isOpen = hamburger.classList.toggle('open'); drawer.classList.toggle('open', isOpen); document.body.style.overflow = isOpen ? 'hidden' : ''; });
 
     // ==========================================
-    // ⚙️ PRICE CONFIGURATION (CHANGE VALUES HERE)
+    // ⚙️ PRICE CONFIGURATION
     // ==========================================
-    const PRICE_PAPER_1 = 350; 
-    const PRICE_PAPER_2 = 350; 
-    const PRICE_BOTH = 650;    
+    const PRICES = {
+      b_paper1: 520, b_paper2: 550, b_both: 1050,
+      e_paper1: 650, e_paper2: 650, e_both: 1250,
+      b_prac: 150, e_prac: 150
+    };
 
-    const DELIVERY_INSIDE_DHAKA = 60;
-    const DELIVERY_OUTSIDE_DHAKA = 110;
-    // ==========================================
+    const NAMES = {
+      b_paper1: "বাংলা ভার্সন প্রথম পত্র", b_paper2: "বাংলা ভার্সন দ্বিতীয় পত্র", b_both: "বাংলা ভার্সন ১ম ও ২য় পত্র (একত্রে)",
+      e_paper1: "ইংরেজি ভার্সন প্রথম পত্র", e_paper2: "ইংরেজি ভার্সন দ্বিতীয় পত্র", e_both: "ইংরেজি ভার্সন ১ম ও ২য় পত্র (একত্রে)",
+      b_prac: "বাংলা ভার্সন প্রাকটিক্যাল বই", e_prac: "ইংরেজি ভার্সন প্রাকটিক্যাল বই"
+    };
 
-    let currentUnitPrice = PRICE_PAPER_1;
-    let currentBookName = "কেমিস্ট্রি মাস্টার ১ম পত্র";
-    let shippingCost = 0;
+    let currentChoice = 'b_paper1';
+    let currentUnitPrice = PRICES[currentChoice];
+    let currentBookName = NAMES[currentChoice];
+    let shippingCost = 0; // Delivery is completely FREE
     let qty = 1;
 
     const radioButtons = document.querySelectorAll('input[name="book_choice"]');
     radioButtons.forEach(radio => {
       radio.addEventListener('change', (e) => {
-        if (e.target.value === 'paper1') {
-          currentUnitPrice = PRICE_PAPER_1;
-          currentBookName = "কেমিস্ট্রি মাস্টার ১ম পত্র";
-        } else if (e.target.value === 'paper2') {
-          currentUnitPrice = PRICE_PAPER_2;
-          currentBookName = "কেমিস্ট্রি মাস্টার ২য় পত্র";
-        } else if (e.target.value === 'both') {
-          currentUnitPrice = PRICE_BOTH;
-          currentBookName = "১ম ও ২য় পত্র (একত্রে)";
-        }
+        currentChoice = e.target.value;
+        currentUnitPrice = PRICES[currentChoice];
+        currentBookName = NAMES[currentChoice];
 
         document.getElementById('displayBookName').textContent = currentBookName;
         document.getElementById('displayUnitPrice').textContent = '৳ ' + toBanglaNum(currentUnitPrice);
@@ -341,21 +348,8 @@
       document.getElementById('totalAmt').textContent = '৳ ' + toBanglaNum(grand);
     }
 
+    // Since delivery is free, we only re-calculate if district is selected to clear validation errors.
     document.getElementById('district').addEventListener('change', function() {
-      const dist = this.value;
-      if (!dist) {
-        shippingCost = 0;
-        document.getElementById('shippingTag').textContent = '—';
-        document.getElementById('shippingAmt').textContent = 'জেলা বেছে নিন';
-      } else if (dist === 'ঢাকা') {
-        shippingCost = DELIVERY_INSIDE_DHAKA;
-        document.getElementById('shippingTag').textContent = 'ঢাকার ভেতরে';
-        document.getElementById('shippingAmt').textContent = '৳ ' + toBanglaNum(shippingCost);
-      } else {
-        shippingCost = DELIVERY_OUTSIDE_DHAKA;
-        document.getElementById('shippingTag').textContent = 'ঢাকার বাইরে';
-        document.getElementById('shippingAmt').textContent = '৳ ' + toBanglaNum(shippingCost);
-      }
       recalc();
     });
 
@@ -389,7 +383,7 @@
       btn.innerText = "প্রসেসিং...";
       btn.disabled = true;
 
-      const orderId = 'CM-' + Date.now().toString(36).toUpperCase();
+      const orderId = 'OX-' + Date.now().toString(36).toUpperCase();
       const subtotal = currentUnitPrice * qty;
 
       const orderData = {
