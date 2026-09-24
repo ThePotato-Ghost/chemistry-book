@@ -56,7 +56,8 @@
     .radio-group { display: flex; flex-direction: column; gap: 0.8rem; }
     .radio-label { display: flex; align-items: center; gap: 0.8rem; font-size: 1rem; color: var(--earth); cursor: pointer; padding: 0.5rem; border-radius: 4px; transition: background 0.2s;}
     .radio-label:hover { background: rgba(14, 165, 233, 0.1); }
-    .radio-label input[type="radio"] { width: 18px; height: 18px; accent-color: var(--wheat); cursor: pointer; }
+    /* Changed from radio to checkbox styles */
+    .radio-label input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--wheat); cursor: pointer; }
 
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
     .form-group { margin-bottom: 1.4rem; }
@@ -78,9 +79,6 @@
     .order-table tbody td { padding: 1.5rem 2rem; font-size: 1rem; color: var(--soil); border-bottom: 1px solid rgba(15,23,42,0.06); }
     .order-table tbody td:last-child { text-align: right; font-weight: 700; }
 
-    .product-name { font-weight: 700; color: var(--ink); line-height: 1.4; font-size: 1.1rem;}
-    .product-meta { font-family: 'Tiro Bangla', serif; font-size: 0.85rem; color: var(--sage); margin-top: 0.3rem; }
-
     .qty-row { display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 2rem; border-bottom: 1px solid rgba(15,23,42,0.08); background: #f8fafc; }
     .qty-label { font-family: 'Tiro Bangla', serif; font-size: 0.95rem; font-weight: 600; color: var(--earth); }
     .qty-counter { display: flex; align-items: center; border: 1px solid rgba(15,23,42,0.2); border-radius: 4px; overflow: hidden; background: #fff;}
@@ -99,6 +97,21 @@
 
     footer { background: var(--ink); padding: 3rem 6vw 2rem; text-align: center; color: var(--sage); font-size: 0.9rem;}
 
+    /* Modal Styles */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(15,23,42,0.7); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: 0.3s; padding: 1rem;}
+    .modal-overlay.active { opacity: 1; visibility: visible; }
+    .modal-content { background: #fff; padding: 2.5rem; border-radius: 8px; width: 100%; max-width: 500px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-height: 90vh; overflow-y: auto;}
+    .modal-content h3 { font-family: 'Tiro Bangla', serif; font-size: 1.6rem; margin-bottom: 1.5rem; color: var(--ink); text-align: center; border-bottom: 2px dashed rgba(15,23,42,0.15); padding-bottom: 1rem;}
+    .memo-list { margin-bottom: 1.5rem; }
+    .memo-item { display: flex; justify-content: space-between; padding: 0.6rem 0; font-size: 1rem; border-bottom: 1px solid #f1f5f9; color: var(--soil);}
+    .memo-total { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem; padding: 1rem 0; border-top: 2px solid var(--soil); margin-top: 0.5rem; color: var(--ink);}
+    .modal-actions { display: flex; gap: 1rem; margin-top: 1rem; }
+    .btn-confirm, .btn-cancel { flex: 1; padding: 1rem; border: none; border-radius: 4px; font-weight: 700; cursor: pointer; font-family: 'Tiro Bangla', serif; font-size: 1rem;}
+    .btn-confirm { background: var(--gold); color: var(--ink); transition: background 0.2s;}
+    .btn-confirm:hover { background: #d97706; color: white;}
+    .btn-cancel { background: #e2e8f0; color: var(--earth); transition: background 0.2s;}
+    .btn-cancel:hover { background: #cbd5e1; }
+
     @media(max-width: 768px) {
       nav { padding: 0 1.2rem; }
       .nav-links { display: none; }
@@ -112,6 +125,7 @@
       .order-table thead th, .order-table tbody td { padding: 1.2rem 1.5rem; }
       .qty-row, .order-totals { padding: 1rem 1.5rem; }
       .place-order-btn { width: calc(100% - 3rem); margin: 0 1.5rem 1.5rem; }
+      .modal-content { padding: 1.5rem; }
     }
   </style>
 </head>
@@ -152,41 +166,42 @@
 
           <!-- BOOK SELECTION CHOICES -->
           <div class="book-choice-wrapper">
-            <span class="book-choice-title">কোন বইটি নিতে চান? <span style="color:#dc2626">*</span></span>
-            <div class="radio-group">
+            <span class="book-choice-title">কোন বইগুলো নিতে চান? (একাধিক নির্বাচন করা যাবে) <span style="color:#dc2626">*</span></span>
+            <div class="radio-group" id="bookCheckboxes">
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="b_paper1" checked>
+                <input type="checkbox" name="book_choice" value="b_paper1" checked>
                 বাংলা ভার্সন প্রথম পত্র
               </label>
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="b_paper2">
+                <input type="checkbox" name="book_choice" value="b_paper2">
                 বাংলা ভার্সন দ্বিতীয় পত্র
               </label>
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="b_both">
+                <input type="checkbox" name="book_choice" value="b_both">
                 বাংলা ভার্সন ১ম ও ২য় পত্র (একত্রে)
               </label>
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="e_paper1">
+                <input type="checkbox" name="book_choice" value="e_paper1">
                 ইংরেজি ভার্সন প্রথম পত্র
               </label>
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="e_paper2">
+                <input type="checkbox" name="book_choice" value="e_paper2">
                 ইংরেজি ভার্সন দ্বিতীয় পত্র
               </label>
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="e_both">
+                <input type="checkbox" name="book_choice" value="e_both">
                 ইংরেজি ভার্সন ১ম ও ২য় পত্র (একত্রে)
               </label>
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="b_prac">
+                <input type="checkbox" name="book_choice" value="b_prac">
                 বাংলা ভার্সন প্রাকটিক্যাল বই
               </label>
               <label class="radio-label">
-                <input type="radio" name="book_choice" value="e_prac">
+                <input type="checkbox" name="book_choice" value="e_prac">
                 ইংরেজি ভার্সন প্রাকটিক্যাল বই
               </label>
             </div>
+            <div class="field-error" id="book_choice-error">অন্তত একটি বই নির্বাচন করুন।</div>
           </div>
 
           <!-- CUSTOMER INFO -->
@@ -244,18 +259,13 @@
                 <th>মূল্য</th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="product-name" id="displayBookName">বাংলা ভার্সন প্রথম পত্র</div>
-                </td>
-                <td id="displayUnitPrice">৳ ৫২০</td>
-              </tr>
+            <tbody id="cartTableBody">
+              <!-- Dynamically populated by JS -->
             </tbody>
           </table>
 
           <div class="qty-row">
-            <span class="qty-label">কপির সংখ্যা</span>
+            <span class="qty-label">সেট/কপির সংখ্যা</span>
             <div class="qty-counter">
               <button class="qty-btn" id="qtyMinus" onclick="changeQty(-1)">−</button>
               <span class="qty-value" id="qtyDisplay">১</span>
@@ -266,7 +276,7 @@
           <div class="order-totals">
             <div class="totals-row">
               <span>বইয়ের মূল্য</span>
-              <span id="subtotalAmt">৳ ৫২০</span>
+              <span id="subtotalAmt">৳ ০</span>
             </div>
             <div class="totals-row">
               <span>ডেলিভারি চার্জ <span class="shipping-tag" id="shippingTag">ফ্রি ডেলিভারি</span></span>
@@ -274,12 +284,30 @@
             </div>
             <div class="totals-row total-final">
               <span>সর্বমোট</span>
-              <span id="totalAmt">৳ ৫২০</span>
+              <span id="totalAmt">৳ ০</span>
             </div>
           </div>
 
-          <button class="place-order-btn" id="placeOrderBtn" onclick="placeOrder()">অর্ডার কনফার্ম করুন</button>
+          <button class="place-order-btn" id="placeOrderBtn" onclick="showMemoPopup()">অর্ডার কনফার্ম করুন</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASH MEMO POPUP MODAL -->
+  <div class="modal-overlay" id="memoModal">
+    <div class="modal-content">
+      <h3>ক্যাশ মেমো (Cash Memo)</h3>
+      <div class="memo-list" id="memoList">
+        <!-- Injected via JS -->
+      </div>
+      <div class="memo-total">
+        <span>সর্বমোট (Total):</span>
+        <span id="memoTotalDisplay">৳ ০</span>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-cancel" onclick="closeMemoPopup()">বাতিল করুন</button>
+        <button class="btn-confirm" id="finalConfirmBtn" onclick="confirmOrder()">নিশ্চিত করুন</button>
       </div>
     </div>
   </div>
@@ -311,22 +339,17 @@
       b_prac: "বাংলা ভার্সন প্রাকটিক্যাল বই", e_prac: "ইংরেজি ভার্সন প্রাকটিক্যাল বই"
     };
 
-    let currentChoice = 'b_paper1';
-    let currentUnitPrice = PRICES[currentChoice];
-    let currentBookName = NAMES[currentChoice];
-    let shippingCost = 0; // Delivery is completely FREE
+    let selectedBooks = ['b_paper1'];
+    let currentUnitPrice = PRICES['b_paper1'];
+    let shippingCost = 0;
     let qty = 1;
 
-    const radioButtons = document.querySelectorAll('input[name="book_choice"]');
-    radioButtons.forEach(radio => {
-      radio.addEventListener('change', (e) => {
-        currentChoice = e.target.value;
-        currentUnitPrice = PRICES[currentChoice];
-        currentBookName = NAMES[currentChoice];
-
-        document.getElementById('displayBookName').textContent = currentBookName;
-        document.getElementById('displayUnitPrice').textContent = '৳ ' + toBanglaNum(currentUnitPrice);
-        recalc();
+    // Track checkbox changes
+    const checkboxes = document.querySelectorAll('input[name="book_choice"]');
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', (e) => {
+        selectedBooks = Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+        updateCartDisplay();
       });
     });
 
@@ -334,24 +357,42 @@
       qty = Math.max(1, Math.min(20, qty + delta));
       document.getElementById('qtyDisplay').textContent = toBanglaNum(qty);
       document.getElementById('qtyMinus').disabled = (qty <= 1);
-      recalc();
+      updateCartDisplay();
     }
 
     function toBanglaNum(n) {
       return String(n).replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]);
     }
 
-    function recalc() {
+    function updateCartDisplay() {
+      const cartTableBody = document.getElementById('cartTableBody');
+      const err = document.getElementById('book_choice-error');
+
+      cartTableBody.innerHTML = ''; // Clear table
+      currentUnitPrice = 0;
+
+      if(selectedBooks.length === 0) {
+        err.classList.add('show');
+      } else {
+        err.classList.remove('show');
+        selectedBooks.forEach(val => {
+          currentUnitPrice += PRICES[val];
+          const row = `<tr>
+            <td><div class="product-name">${NAMES[val]}</div></td>
+            <td>৳ ${toBanglaNum(PRICES[val])}</td>
+          </tr>`;
+          cartTableBody.insertAdjacentHTML('beforeend', row);
+        });
+      }
+
       const subtotal = currentUnitPrice * qty;
       document.getElementById('subtotalAmt').textContent = '৳ ' + toBanglaNum(subtotal);
-      const grand = subtotal + shippingCost;
-      document.getElementById('totalAmt').textContent = '৳ ' + toBanglaNum(grand);
+
+      const grandTotal = subtotal + shippingCost;
+      document.getElementById('totalAmt').textContent = '৳ ' + toBanglaNum(grandTotal);
     }
 
-    // Since delivery is free, we only re-calculate if district is selected to clear validation errors.
-    document.getElementById('district').addEventListener('change', function() {
-      recalc();
-    });
+    document.getElementById('district').addEventListener('change', updateCartDisplay);
 
     function validate() {
       const fields = [
@@ -367,33 +408,69 @@
         if (!f.check(el.value)) { el.classList.add('error'); if(err) err.classList.add('show'); valid = false; }
         else { el.classList.remove('error'); if(err) err.classList.remove('show'); }
       });
+
+      if(selectedBooks.length === 0) {
+        document.getElementById('book_choice-error').classList.add('show');
+        valid = false;
+      }
       return valid;
     }
 
-    async function placeOrder() {
-      const honeypot = document.getElementById("company").value;
-      if (honeypot !== "") return;
+    // Modal Logic
+    const memoModal = document.getElementById('memoModal');
 
+    function showMemoPopup() {
       if (!validate()) {
         alert("দয়া করে ফর্মের লাল চিহ্নিত তথ্যগুলো সঠিকভাবে পূরণ করুন।");
         return;
       }
 
-      const btn = document.getElementById('placeOrderBtn');
+      const memoList = document.getElementById('memoList');
+      memoList.innerHTML = '';
+
+      selectedBooks.forEach(val => {
+        const itemTotal = PRICES[val] * qty;
+        memoList.insertAdjacentHTML('beforeend', `
+          <div class="memo-item">
+            <span>${NAMES[val]} (x${toBanglaNum(qty)})</span>
+            <span>৳ ${toBanglaNum(itemTotal)}</span>
+          </div>
+        `);
+      });
+
+      const grandTotal = (currentUnitPrice * qty) + shippingCost;
+      document.getElementById('memoTotalDisplay').textContent = '৳ ' + toBanglaNum(grandTotal);
+
+      memoModal.classList.add('active');
+    }
+
+    function closeMemoPopup() {
+      memoModal.classList.remove('active');
+    }
+
+    async function confirmOrder() {
+      const honeypot = document.getElementById("company").value;
+      if (honeypot !== "") return;
+
+      const btn = document.getElementById('finalConfirmBtn');
       btn.innerText = "প্রসেসিং...";
       btn.disabled = true;
 
       const orderId = 'OX-' + Date.now().toString(36).toUpperCase();
       const subtotal = currentUnitPrice * qty;
+      const grandTotal = subtotal + shippingCost;
+
+      // Formatting products into a string for the telegram bot
+      const productNames = selectedBooks.map(val => NAMES[val]).join(', ');
 
       const orderData = {
         orderId: orderId,
-        product: currentBookName,
+        product: productNames, // <-- Now contains all selected books
         unitPrice: currentUnitPrice,
         quantity: qty,
         subtotal: subtotal,
         shipping: shippingCost,
-        total: subtotal + shippingCost,
+        total: grandTotal, // Uses integer total
 
         customer: {
           name: document.getElementById('fullName').value.trim(),
@@ -421,10 +498,13 @@
       } catch (err) {
         console.error("ORDER ERROR:", err);
         alert("অর্ডার পাঠানো যায়নি। আপনার ইন্টারনেট সংযোগ চেক করে আবার চেষ্টা করুন।");
-        btn.innerText = "অর্ডার কনফার্ম করুন";
+        btn.innerText = "নিশ্চিত করুন";
         btn.disabled = false;
       }
     }
+
+    // Initialize Cart display on load
+    updateCartDisplay();
   </script>
 </body>
 </html>
