@@ -1,4 +1,4 @@
-https://thepotato-ghost.github.io/chemistry-book/index.html<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="bn" translate="no">
 <head>
   <meta name="google" content="notranslate">
@@ -42,7 +42,9 @@ https://thepotato-ghost.github.io/chemistry-book/index.html<!DOCTYPE html>
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .nav-drawer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+    
+    /* Changed display: none to display: flex to fix mobile menu rendering */
+    .nav-drawer { display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
     .nav-drawer.open { opacity: 1; pointer-events: all; }
     .nav-drawer a { font-family: 'Tiro Bangla', serif; font-size: 1.8rem; font-weight: 700; color: var(--straw); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
     .nav-drawer a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
