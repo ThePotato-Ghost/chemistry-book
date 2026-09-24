@@ -31,9 +31,19 @@
     .nav-links a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
     .nav-links a:hover { opacity: 1; }
     .nav-links a:hover::after { width: 100%; }
-    .nav-buy-btn { background: var(--gold) !important; color: var(--ink) !important; padding: 0.45rem 1.2rem !important; opacity: 1 !important; border-radius: 4px; font-weight: 700;}
-    .nav-buy-btn::after { display: none !important; }
-    .nav-buy-btn:hover { background: #d97706 !important; color: white !important;}
+    
+    /* Added Nav Hamburger and Drawer styles */
+    .nav-hamburger { display: none; flex-direction: column; justify-content: center; align-items: center; width: 40px; height: 40px; background: none; border: none; cursor: pointer; z-index: 1001; gap: 5px; }
+    .nav-hamburger span { display: block; width: 22px; height: 1.5px; background: var(--cream); transition: transform 0.35s ease, opacity 0.25s ease; transform-origin: center; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .nav-drawer { display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+    .nav-drawer.open { opacity: 1; pointer-events: all; }
+    .nav-drawer a { font-family: 'Tiro Bangla', serif; font-size: 1.8rem; font-weight: 700; color: var(--straw); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
+    .nav-drawer a::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.35s cubic-bezier(0.4,0,0.2,1); }
+    .nav-drawer a:hover { color: var(--wheat); }
+    .nav-drawer a:hover::after { width: 100%; }
 
     .checkout-page { padding-top: 70px; min-height: 100vh; }
     .checkout-header { background: var(--soil); padding: 3.5rem 6vw 3rem; }
@@ -95,15 +105,41 @@
     .place-order-btn:hover:not(:disabled) { background: #d97706; color: white; transform: translateY(-2px); }
 
     footer { background: var(--ink); padding: 3rem 6vw 2rem; text-align: center; color: var(--sage); font-size: 0.9rem;}
+
+    /* Added Mobile Responsiveness */
+    @media(max-width: 768px) {
+      nav { padding: 0 1.2rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .checkout-body { grid-template-columns: 1fr; gap: 2rem; padding: 2rem 5vw; }
+      .checkout-header { padding: 2.5rem 5vw 2rem; }
+      .checkout-header h1 { font-size: clamp(2rem, 8vw, 2.8rem); }
+      .order-card { position: static; }
+      .form-row { grid-template-columns: 1fr; gap: 0; }
+      .card-header, .card-body { padding: 1.5rem; }
+      .order-table thead th, .order-table tbody td { padding: 1.2rem 1.5rem; }
+      .qty-row, .order-totals { padding: 1rem 1.5rem; }
+      .place-order-btn { width: calc(100% - 3rem); margin: 0 1.5rem 1.5rem; }
+    }
   </style>
 </head>
 <body>
+
+  <!-- Added Nav Drawer -->
+  <div class="nav-drawer" id="navDrawer">
+    <a href="index.html" onclick="closeDrawer()">হোম</a>
+    <a href="about.html" onclick="closeDrawer()">লেখক পরিচিতি</a>
+  </div>
 
   <nav>
     <a href="index.html" class="nav-brand">কেমিস্ট্রি মাস্টার</a>
     <ul class="nav-links">
       <li><a href="about.html">লেখক পরিচিতি</a></li>
     </ul>
+    <!-- Added Hamburger Menu Button -->
+    <button class="nav-hamburger" id="hamburger" aria-label="মেনু">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <div class="checkout-page">
@@ -245,14 +281,19 @@
   </footer>
 
   <script>
+    // Added Javascript for mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('navDrawer');
+    function closeDrawer() { hamburger.classList.remove('open'); drawer.classList.remove('open'); document.body.style.overflow = ''; }
+    hamburger.addEventListener('click', () => { const isOpen = hamburger.classList.toggle('open'); drawer.classList.toggle('open', isOpen); document.body.style.overflow = isOpen ? 'hidden' : ''; });
+
     // ==========================================
     // ⚙️ PRICE CONFIGURATION (CHANGE VALUES HERE)
     // ==========================================
-    const PRICE_PAPER_1 = 350; // Price for only 1st Paper
-    const PRICE_PAPER_2 = 350; // Price for only 2nd Paper
-    const PRICE_BOTH = 650;    // Discounted price for both papers combined
+    const PRICE_PAPER_1 = 350; 
+    const PRICE_PAPER_2 = 350; 
+    const PRICE_BOTH = 650;    
 
-    // DELIVERY CHARGES
     const DELIVERY_INSIDE_DHAKA = 60;
     const DELIVERY_OUTSIDE_DHAKA = 110;
     // ==========================================
@@ -262,7 +303,6 @@
     let shippingCost = 0;
     let qty = 1;
 
-    // Handle Book Selection Radio Buttons
     const radioButtons = document.querySelectorAll('input[name="book_choice"]');
     radioButtons.forEach(radio => {
       radio.addEventListener('change', (e) => {
@@ -277,14 +317,12 @@
           currentBookName = "১ম ও ২য় পত্র (একত্রে)";
         }
 
-        // Update UI
         document.getElementById('displayBookName').textContent = currentBookName;
         document.getElementById('displayUnitPrice').textContent = '৳ ' + toBanglaNum(currentUnitPrice);
         recalc();
       });
     });
 
-    // Handle Quantity
     function changeQty(delta) {
       qty = Math.max(1, Math.min(20, qty + delta));
       document.getElementById('qtyDisplay').textContent = toBanglaNum(qty);
@@ -292,12 +330,10 @@
       recalc();
     }
 
-    // Bangla Number Converter
     function toBanglaNum(n) {
       return String(n).replace(/[0-9]/g, d => '০১২৩৪৫৬৭৮৯'[d]);
     }
 
-    // Calculate Totals
     function recalc() {
       const subtotal = currentUnitPrice * qty;
       document.getElementById('subtotalAmt').textContent = '৳ ' + toBanglaNum(subtotal);
@@ -305,7 +341,6 @@
       document.getElementById('totalAmt').textContent = '৳ ' + toBanglaNum(grand);
     }
 
-    // Handle Delivery District
     document.getElementById('district').addEventListener('change', function() {
       const dist = this.value;
       if (!dist) {
@@ -324,7 +359,6 @@
       recalc();
     });
 
-    // Form Validation
     function validate() {
       const fields = [
         { id: 'fullName', check: v => v.trim().length >= 2 },
@@ -342,7 +376,6 @@
       return valid;
     }
 
-    // Submit Order function connecting to /api/telegram
     async function placeOrder() {
       const honeypot = document.getElementById("company").value;
       if (honeypot !== "") return;
@@ -359,10 +392,9 @@
       const orderId = 'CM-' + Date.now().toString(36).toUpperCase();
       const subtotal = currentUnitPrice * qty;
 
-      // Formatting Payload for your backend API
       const orderData = {
         orderId: orderId,
-        product: currentBookName, // Sending the chosen book name dynamically!
+        product: currentBookName,
         unitPrice: currentUnitPrice,
         quantity: qty,
         subtotal: subtotal,
@@ -389,7 +421,6 @@
 
         if (!response.ok) throw new Error("Failed to send order");
 
-        // Save order locally for display on the Next Page
         localStorage.setItem("lastOrder", JSON.stringify(orderData));
         window.location.href = "order-complete.html";
 
