@@ -11,7 +11,7 @@
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
     :root {
-      var(--soil): #020617;
+      --soil: #020617;
       --earth: #1e293b;
       --wheat: #0ea5e9;
       --straw: #38bdf8;
@@ -39,7 +39,9 @@
     .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
     .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
-    .nav-drawer { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
+    
+    /* Corrected display: flex for proper animations */
+    .nav-drawer { display: flex; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: var(--ink); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2.2rem; opacity: 0; pointer-events: none; transition: opacity 0.35s ease; }
     .nav-drawer.open { opacity: 1; pointer-events: all; }
     .nav-drawer a { font-family: 'Tiro Bangla', serif; font-size: 1.8rem; font-weight: 700; color: var(--straw); text-decoration: none; position: relative; padding-bottom: 4px; transition: color 0.3s; }
 
@@ -96,6 +98,7 @@
 <body>
 
   <div class="nav-drawer" id="navDrawer">
+    <a href="index.html" onclick="closeDrawer()">হোম</a>
     <a href="about.html" onclick="closeDrawer()">লেখক পরিচিতি</a>
     <a href="checkout.html" onclick="closeDrawer()">বই কিনুন</a>
   </div>
